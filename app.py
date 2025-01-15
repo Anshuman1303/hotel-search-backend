@@ -3,12 +3,12 @@ import json
 from inference2 import recommend_hotels
 app = Flask(__name__)
 
-@app.route("/", methods=['GET', 'POST'])
-def hello_world():
+@app.route("/search/", methods=['GET', 'POST'])
+def search():
     if request.method == 'POST':
         data = request.data.decode()
         if (data):
-            data = json.loads(request.data.decode())
+            data = json.loads(data)
             if ("query" in data):
-                return recommend_hotels(json.loads(request.data.decode())['query'])
+                return recommend_hotels(data['query'])
         return {"msg": "No query provided"}, 400
